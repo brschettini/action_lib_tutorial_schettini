@@ -63,7 +63,7 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 add_action_files(
   DIRECTORY action
-  FILES Fibonacci.action
+  FILES Fibonacci.action Averaging.action
 )
 ## Generate actions in the 'action' folder
 # add_action_files(
