@@ -61,13 +61,20 @@ find_package(catkin REQUIRED COMPONENTS
 #   Service1.srv
 #   Service2.srv
 # )
-
+add_action_files(
+  DIRECTORY action
+  FILES Fibonacci.action
+)
 ## Generate actions in the 'action' folder
 # add_action_files(
 #   FILES
 #   Action1.action
 #   Action2.action
 # )
+
+generate_messages(
+  DEPENDENCIES actionlib_msgs std_msgs
+)
 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
@@ -107,7 +114,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES action_lib_tutorials
-#  CATKIN_DEPENDS actionlib actionlib_msgs message_generation roscpp std_msgs
+  CATKIN_DEPENDS actionlib_msgs
 #  DEPENDS system_lib
 )
 
@@ -135,8 +142,10 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/action_lib_tutorials_node.cpp)
-
+add_executable(fibonacci_server src/fibonacci_server.cpp)
+target_link_libraries(fibonacci_server ${catkin_LIBRARIES})
+add_dependencies( fibonacci_server ${action_lib_tutorial_schettini_EXPORTED_TARGETS}
+)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
