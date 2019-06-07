@@ -53,7 +53,7 @@ class AveragingAction {
         feedback_.std_dev = sqrt(fabs((sum_sq_/data_count_) - pow(feedback_.mean, 2)));
         action_server_.publishFeedback(feedback_);
 
-        if (data_count_ > goal) {
+        if (data_count_ > goal_) {
             result_.mean = feedback_.mean;
             result_.std_dev = feedback_.std_dev;
 

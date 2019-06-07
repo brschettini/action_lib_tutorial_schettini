@@ -154,6 +154,10 @@ add_executable(averaging_server src/averaging_server.cpp)
 target_link_libraries(averaging_server ${catkin_LIBRARIES})
 add_dependencies(averaging_server ${action_lib_tutorial_schettini_EXPORTED_TARGETS})
 
+add_executable(averaging_client src/averaging_client.cpp)
+target_link_libraries(averaging_client ${catkin_LIBRARIES})
+add_dependencies(averaging_client ${action_lib_tutorial_schettini_EXPORTED_TARGETS})
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
