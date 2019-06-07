@@ -23,6 +23,7 @@ class AveragingAction {
 
         sub_ = node_handle_.subscribe("/random_number", 1, &AveragingAction::analysisCB, this);
         action_server_.start();
+        ROS_INFO("Action server started");
     }
 
     ~AveragingAction() {}
@@ -32,6 +33,7 @@ class AveragingAction {
         sum_ = 0;
         sum_sq_ = 0;
         goal_ = action_server_.acceptNewGoal()->samples;
+        ROS_INFO("Goal set");
     }
 
     void preemptCB() {
@@ -44,7 +46,7 @@ class AveragingAction {
         if (!action_server_.isActive()) {
             return;
         }
-        
+        ROS_INFO("DATA RECEIVED");
         data_count_++;
         feedback_.sample = msg->data;
         sum_ += msg->data;
@@ -57,7 +59,7 @@ class AveragingAction {
             result_.mean = feedback_.mean;
             result_.std_dev = feedback_.std_dev;
 
-            if (result_.mean < 5.0) {
+            if (result_.mean < 0.0) {
                 ROS_INFO("%s: Aborted", action_name_.c_str());
                 action_server_.setAborted(result_);
             } else {
@@ -69,7 +71,7 @@ class AveragingAction {
 };
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "averaging_server");
+    ros::init(argc, argv, "averaging");
     AveragingAction averaging(ros::this_node::getName());
     ros::spin();
 

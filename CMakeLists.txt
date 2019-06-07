@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   message_generation
   roscpp
+  rospy
   std_msgs
 )
 
